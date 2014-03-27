@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Krow Bookmarks",
   "description": "Bookmark your facebook posts by just clicking 'bookmark' next to it!",
-  "version": "0.1",
+  "version": "0.1.1",
   "permissions": [
     "webRequest",
     "bookmarks",
@@ -12,12 +12,16 @@
     "https://www.facebook.com/*"
     ],
   "content_scripts": [{
-    "matches":["*://*/*"],
+    "matches":["http://www.facebook.com/*", "https://www.facebook.com/*"],
     "js": ["jquery-1.11.0.min.js", "inject.js"],
+    "css": ["krow-style.css"],
     "run_at": "document_end"
   }],
   "background": {
     "persistent": true,
     "scripts": ["jquery-1.11.0.min.js","background.js"]
+  },
+  "icons": { 
+    "128": "krow128.png"
   }
 }

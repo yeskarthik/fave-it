@@ -1,20 +1,35 @@
+function strip(html) {
+  var tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  var text =  tmp.textContent || tmp.innerText || '';
+  return text.replace(/['"]/g, '');
+}
+
 $(function() {
-  console.log("hello");
-  $("._5pcp").each(function() {
-    $(this).find(".krowBookmark").remove();
-    $(this).append("<a style='margin-left: 2px;' class='krowBookmark' data-link='"+ $(this).find("._5pcq").attr('href') + "' href='#'>Bookmark</a>");
+  $('._5pax').each(function() {
+    var username = strip($(this).find('a').html());
+    var content = strip($(this).find('.userContent').html().substring(0, 100));
+    var link = $(this).find('._5pcq').attr('href');  
+
+    $(this).find('.krowBookmark').remove();
+    $(this).find('._5pcp').append('<a class="krowBookmark" '+
+      'data-username="'+ username + '" ' +
+      'data-content="'+ content + '" ' +
+      'data-link="'+ link + 
+      '" href="#">Bookmark</a>');
   });
 
   $('.krowBookmark').off();
   $('.krowBookmark').click(function(){
-    console.log('dai');
+    var username= $(this).attr('data-username');
+    var content = $(this).attr('data-content');
     var link = $(this).attr('data-link');
     if(link.length > 0) {
       if(link[0] === '/'){
         link = window.location.origin + link;
       }
-      chrome.runtime.sendMessage({link: link}, function(response) {
-        console.log(response);
+      chrome.runtime.sendMessage({username: username, content: content, link: link}, function(response) {
+        //console.log("success");
       }); 
     }
   });

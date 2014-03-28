@@ -1,5 +1,7 @@
+var bookmarkClass = 'faveit';
+
 $(function() {
-  $('.krowBookmark').remove();
+  $('.'+bookmarkClass).remove();
   if($('._5pax').length !== 0) {
     //old facebook
     $('._5pax').each(function() {
@@ -7,7 +9,7 @@ $(function() {
       var content = strip($(this).find('.userContent').html()) || "";
       var link = $(this).find('._5pcq').attr('href');  
       content = content.substring(0, 100);
-      $(this).find('.krowBookmark').remove();
+      $(this).find('.'+bookmarkClass).remove();
       buildBookmarkTag($(this).find('._5pcp'), username, content, link);
     });
   } else {
@@ -18,7 +20,7 @@ $(function() {
         var content = strip($(this).find('.userContent').html()) || "";
         content = content.substring(0, 100);
         var link = $(this).find('._5pcq').attr('href');  
-        $(this).find('.krowBookmark').remove();
+        $(this).find('.'+bookmarkClass).remove();
         buildBookmarkTag($(this).find('._5vsi'), username, content, link);
       }
     });

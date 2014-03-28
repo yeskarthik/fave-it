@@ -13,18 +13,18 @@ chrome.webRequest.onCompleted.addListener(function(details) {
   }
 }, {urls : ['*://*.facebook.com/*']});
 
-var krowBookmarksId = null;
-
-chrome.bookmarks.search('Krow Bookmarks', function(bookmarkTreeNodes){
+var bookmarksFolderId = null;
+var bookmarksFolderName = 'Facebook Favs'
+chrome.bookmarks.search(bookmarksFolderName, function(bookmarkTreeNodes){
   if(bookmarkTreeNodes.length > 0){
-    krowBookmarksId = bookmarkTreeNodes[0].id;
+    bookmarksFolderId = bookmarkTreeNodes[0].id;
   } else {
     chrome.bookmarks.search('Bookmarks Bar', function(bookmarksBarTreeNodes){
-     // console.log(JSON.stringify(bookmarksBarTreeNodes));
+      // console.log(JSON.stringify(bookmarksBarTreeNodes));
       chrome.bookmarks.create({ 'parentId':  bookmarksBarTreeNodes[0].id,
-        'title': 'Krow bookmarks'},
+        'title': bookmarksFolderName},
         function(newFolder) {
-          krowBookmarksId = newFolder.id;
+          bookmarksFolderId = newFolder.id;
           //console.log('added folder: ' + newFolder.title);
         });
     });
@@ -36,28 +36,27 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   //console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension');
   if(request.action === 'addFbBookmark') {
     if(request.link) {
-      chrome.bookmarks.search(request.link, 
-        function(treeNodes) {           
-          if(treeNodes.length === 0) { 
-            chrome.bookmarks.create({'parentId': krowBookmarksId, 
-              'title': request.username + ': ' + request.content,
-              'url': request.link});
-          }
-        });
+      chrome.bookmarks.search(request.link, function(treeNodes) {           
+        if(treeNodes.length === 0) { 
+          chrome.bookmarks.create({'parentId': bookmarksFolderId, 
+            'title': request.username + ': ' + request.content,
+            'url': request.link});
+        }
+      });
       sendResponse({bookmarkCreate: 'success'});
     } else {
       sendResponse({bookmarkCreate: 'fail'});
     }
   } else if (request.action === 'checkIfBookmarkExists') {
-      if(request.link) {
-        chrome.bookmarks.search(request.link, 
+    if(request.link) {
+      chrome.bookmarks.search(request.link, 
         function(treeNodes) { 
           sendResponse({'exists': (treeNodes.length > 0)});
         });
-        return true;
-      } else {
-        sendResponse({'exists': false});
-      }
+      return true;
+    } else {
+      sendResponse({'exists': false});
+    }
   }
 });
 

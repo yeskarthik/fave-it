@@ -1,7 +1,7 @@
 Facemark
 ========
 
-Bookmark your facebook posts by just clicking 'Faveit' next to it!
+A Chrome Extension to Bookmark facebook posts by just clicking 'Faveit' next to it!
 
 Tired of scrolling down the Facebook stream to find interesting posts by your buddies a few days back? 
 Here's an ultimate tool to bookmark posts in the Facebook stream without opening the post or even right clicking it.

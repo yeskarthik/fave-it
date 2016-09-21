@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Fave It!",
   "description": "Bookmark Facebook posts by just clicking 'FaveIt' next to it!",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "permissions": [
     "webRequest",
     "bookmarks",

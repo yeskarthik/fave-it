@@ -20,12 +20,10 @@ chrome.bookmarks.search(bookmarksFolderName, function(bookmarkTreeNodes){
     bookmarksFolderId = bookmarkTreeNodes[0].id;
   } else {
     chrome.bookmarks.search('Bookmarks Bar', function(bookmarksBarTreeNodes){
-      // console.log(JSON.stringify(bookmarksBarTreeNodes));
       chrome.bookmarks.create({ 'parentId':  bookmarksBarTreeNodes[0].id,
         'title': bookmarksFolderName},
         function(newFolder) {
           bookmarksFolderId = newFolder.id;
-          //console.log('added folder: ' + newFolder.title);
         });
     });
   }
@@ -33,7 +31,6 @@ chrome.bookmarks.search(bookmarksFolderName, function(bookmarkTreeNodes){
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  //console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension');
   if(request.action === 'addFbBookmark') {
     if(request.link) {
       chrome.bookmarks.search(request.link, function(treeNodes) {           
@@ -51,11 +48,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if(request.link) {
       chrome.bookmarks.search(request.link, 
         function(treeNodes) { 
-          sendResponse({'exists': (treeNodes.length > 0)});
+          sendResponse({'exists': (treeNodes.length > 0), 'nodes': treeNodes});
         });
       return true;
     } else {
       sendResponse({'exists': false});
+    }
+  } else if (request.action === 'removeFbBookmark') {
+    if(request.id) {
+      chrome.bookmarks.remove(request.id);
+      sendResponse({bookmarkDelete: 'success'});
+    } else {
+      sendResponse({bookmarkDelete: 'fail'});
     }
   }
 });

@@ -1,7 +1,7 @@
-Fave it!
+Fave It!
 ========
 
-A Chrome Extension to Bookmark facebook posts by just clicking 'Faveit' next to it!
+A Chrome Extension to Bookmark Facebook posts by just clicking 'FaveIt' next to it!
 
 Installation Link : https://chrome.google.com/webstore/detail/fave-it/mhojcabdgagooepopmfcimnkflgihnjg
 
@@ -11,7 +11,7 @@ Here's an ultimate tool to bookmark posts in the Facebook stream without opening
 
 ![alt text](https://raw.githubusercontent.com/yeskarthik/fave-it/master/FaveItScreenshot.jpg "Fave it screenshot")
 
-Just click 'Faveit' and the post's link is automagically added to a separate folder called 'Facebook Favs' in your Google Chrome bookmarks bar.
+Just click 'FaveIt' and the post's link is automagically added to a separate folder called 'Facebook Favs' in your Google Chrome bookmarks bar. Also, reclick on 'Fav'd' posts to undo and reomve from Bookmarks.
 
 Feature requests, bugs, feedback are welcome!
 

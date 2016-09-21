@@ -15,7 +15,11 @@ function buildBookmarkTag($element, username, content, link) {
   $tagBuilder.attr('data-username', username).attr('data-content', content).attr('data-link', link)
     .attr('href', '#').addClass(bookmarkClass);
   chrome.runtime.sendMessage({'action': 'checkIfBookmarkExists', 'link': link}, function(response) {
-      if(response.exists) $tagBuilder.addClass(bookmarkedClass).html(bookmarkedLabel);
+      if(response.exists) {
+        $tagBuilder.addClass(bookmarkedClass).html(bookmarkedLabel);
+      }
+      $element.find(".faveit").remove();
+      $element.find(".favedit").remove();
       $element.append($tagBuilder.wrap('<div/>').parent().html());
   });
 }

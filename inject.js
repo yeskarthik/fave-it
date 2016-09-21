@@ -5,8 +5,8 @@ function strip(html) {
   return text.replace(/['"]/g, '');
 }
 
-var bookmarkLabel = 'Faveit';
-var bookmarkedLabel = 'Fav\'d &#9733;';
+var bookmarkLabel = '&#9734;   FaveIt';
+var bookmarkedLabel = '&#9733; Fav\'d';
 var bookmarkClass = 'faveit';
 var bookmarkedClass = 'favedit';
 
@@ -34,9 +34,19 @@ $(function() {
       }
       chrome.runtime.sendMessage({'action': 'addFbBookmark', 'username': username, 'content': content, 'link': link}, function(response) {
         $(element).html(bookmarkedLabel).addClass(bookmarkedClass);
-        //console.log("success");
       }); 
     }
+  });
+  $(document).on('click', '.'+bookmarkedClass, function(){
+    var username= $(this).attr('data-username');
+    var content = $(this).attr('data-content');
+    var link = $(this).attr('data-link');
+    var element = this;
+    chrome.runtime.sendMessage({'action': 'checkIfBookmarkExists', 'username': username, 'content': content, 'link': link}, function(response) {
+      chrome.runtime.sendMessage({'action': 'removeFbBookmark', 'id': response.nodes[0].id}, function(response) {
+        $(element).html(bookmarkLabel).removeClass(bookmarkedClass);
+      });
+    });
   });
 });
 

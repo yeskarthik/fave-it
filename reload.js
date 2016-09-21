@@ -21,7 +21,7 @@ $(function() {
         content = content.substring(0, 100);
         var link = $(this).find('._5pcq').attr('href');  
         $(this).find('.'+bookmarkClass).remove();
-        buildBookmarkTag($(this).find('._5vsi'), username, content, link);
+        buildBookmarkTag($(this).find('._42nr'), username, content, link);
       }
     });
     

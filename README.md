@@ -9,6 +9,7 @@ Updates in 1.0.0:
 
 1. Styled to suit latest Facebook UI.
 2. Added feature to Un-fave.
+3. Minor bug fixes.
 
 
 Tired of scrolling down the Facebook stream to find interesting posts by your buddies a few days back? 
